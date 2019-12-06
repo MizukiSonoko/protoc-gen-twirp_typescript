@@ -46,6 +46,16 @@ export const create{{.Name}} = (baseURL: string, options = {}): {{.Package}}.{{.
 
     return {{.Package}}.{{.Name}}.create(createTwirpAdapter(axios, getServiceMethodName));
 };
+export const create{{.Name}}WithJWT = (baseURL: string, jwt: string): {{.Package}}.{{.Name}} => {
+	const axios = Axios.create({
+        baseURL: baseURL + {{.Name}}PathPrefix,
+        headers: {
+          Accept: 'application/protobuf',
+          Authorization: 'Bearer '+jwt
+        }
+    });
+    return {{.Package}}.{{.Name}}.create(createTwirpAdapter(axios, getServiceMethodName));
+};
 {{- end}}
 `
 
